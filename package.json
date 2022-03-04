@@ -1,0 +1,30 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "GraphQL",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Youssef12T1B1/GraphQL.git"
+  },
+  "author": "Youssef",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Youssef12T1B1/GraphQL/issues"
+  },
+  "homepage": "https://github.com/Youssef12T1B1/GraphQL#readme",
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "express": "^4.17.3",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.8.0",
+    "mongoose": "^6.2.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
