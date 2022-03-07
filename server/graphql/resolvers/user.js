@@ -2,7 +2,7 @@
 const User = require('../../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const jwtKey = require('../../config/.env').JwtSec
+const jwtKey = require('../../config/.env').Jwt_Sec
 
 module.exports={
     

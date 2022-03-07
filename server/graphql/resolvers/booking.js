@@ -11,7 +11,10 @@ const {formBooking, fromEvent} = require('./merge')
 module.exports={
 
 
-        bookings: async ()=>{
+        bookings: async (args, req)=>{
+            if(!req.isAuth){
+                throw new Error('Logged In first!!')
+            }
             try{
                 const bookings = await Booking.find()
                 return bookings.map(booking=>{
@@ -24,16 +27,22 @@ module.exports={
             
         },
 
-        bookEvent: async args =>{
+        bookEvent: async (args, req) =>{
+            if(!req.isAuth){
+                throw new Error('Logged In first!!')
+            }
             const event = await Event.findOne( {_id: args.eventId })
             const booking =  new Booking({
-                   user: "6224c1c8a5a1775fe79fe0a9",
+                   user: req.userId,
                    event: event
             })
             const result = await booking.save()
             return formBooking(result)
         },
-        cancelBooking : async args=>{
+        cancelBooking : async (args, req)=>{
+            if(!req.isAuth){
+                throw new Error('Logged In first!!')
+            }
             try{
                 const booking = await Booking.findById(args.bookingId).populate('event')
                 const event = fromEvent(booking.event)

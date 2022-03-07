@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const jwtKey = require('../../config/.env').JwtSec
+const jwtKey = require('../config/.env').Jwt_Sec
 
 module.exports = (req,res,next)=>{
     const authHeader = req.get('Authorization')

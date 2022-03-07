@@ -1,4 +1,5 @@
 const Event = require('../../models/event')
+const User = require('../../models/user')
 const {fromEvent} = require('./merge')
 
 
@@ -18,13 +19,16 @@ module.exports={
         }
     },
 
-    createEvent : (args)=>{
+    createEvent : (args, req)=>{
+        if(!req.isAuth){
+            throw new Error('Logged In first!!')
+        }
         const event = new Event({
             title: args.EventInput.title,
             description: args.EventInput.description,
             price: +args.EventInput.price,
             date: new Date(args.EventInput.date),
-            creator: '6224c1c8a5a1775fe79fe0a9'
+            creator: req.userId
         
         })
         let createdEvent
@@ -32,7 +36,7 @@ module.exports={
         .save()
         .then(result=>{
             createdEvent =  fromEvent(result)
-            return  User.findById('6224c1c8a5a1775fe79fe0a9')
+            return  User.findById(req.userId)
             return {...result._doc}
         })
         .then(user=>{

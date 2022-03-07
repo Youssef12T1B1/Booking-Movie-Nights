@@ -2,9 +2,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { graphqlHTTP } = require('express-graphql')
 const connectDB = require('./config/db')
-
 const Schema = require('./graphql/schema/schema')
 const root = require('./graphql/resolvers/main')
+const isAuth = require('./middleware/Is_Auth')
+
 const app = express()
 connectDB()
 
@@ -12,7 +13,7 @@ connectDB()
 app.use(bodyParser.json())
 
 
-
+app.use(isAuth)
 
 
 
