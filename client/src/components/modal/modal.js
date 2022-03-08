@@ -9,7 +9,7 @@ const modal = props=>(
                 </section>
         <section className="modal_buttons">
             {props.canCancel &&<button className="btn_modal" onClick={props.onCancel}>Cancel</button>}
-            {props.canAdd && <button  className="btn_modal" onClick={props.onAdd} >Add</button>}
+            {props.canAdd && <button  className="btn_modal" onClick={props.onAdd} > {props.buttonText} </button>}
             </section>
             
 

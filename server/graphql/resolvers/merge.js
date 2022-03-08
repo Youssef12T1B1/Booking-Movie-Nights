@@ -8,7 +8,7 @@ const user = async userId=>{
     const user = await User.findById(userId)
   
     return { ...user._doc, 
-        createdEvents: events.bind(this, user.createdEvents)
+        createdEvents: events.bind(this, user._doc.createdEvents)
     }
   
 }catch (err){
@@ -62,5 +62,5 @@ const formBooking =  booking =>{
 exports.formBooking = formBooking 
 exports.fromEvent = fromEvent 
 // exports.user = user
-// //exports.events = events
+//exports.events = events
 // exports.singleEvent= singleEvent

@@ -10,9 +10,9 @@ class AuthPage extends Component{
 
     constructor(props){
         super(props)
-        this.usernameV = React.createRef()
-        this.emailV = React.createRef()
-        this.passwordV = React.createRef()
+        this.usernameRef = React.createRef()
+        this.emailRef = React.createRef()
+        this.passwordRef = React.createRef()
     }
 
     LogInHandler = ()=>{
@@ -23,9 +23,9 @@ class AuthPage extends Component{
 
       fromHandler = (event)=>{
           event.preventDefault()
-          const username = this.usernameV.current.value
-          const email = this.emailV.current.value
-          const password = this.passwordV.current.value
+          const username = this.usernameRef.current.value
+          const email = this.emailRef.current.value
+          const password = this.passwordRef.current.value
           if(username.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0 ){
               return
           }
@@ -89,17 +89,17 @@ class AuthPage extends Component{
         return <form className="Auth_form" onSubmit={this.fromHandler}>
             <div className="form-control">
                 <label htmlFor="username">Username</label>
-                <input type='text' id="username" ref={this.usernameV}></input>
+                <input type='text' id="username" ref={this.usernameRef}></input>
             </div>
 
             <div className="form-control">
                 <label htmlFor="email">E-mail</label>
-                <input type='email' id="email" ref={this.emailV} ></input>
+                <input type='email' id="email" ref={this.emailRef} ></input>
             </div>
 
             <div className="form-control">
               <label htmlFor="password">Password</label>
-              <input type='password' id="password" ref={this.passwordV}></input>
+              <input type='password' id="password" ref={this.passwordRef}></input>
           </div>
           <div className="from-buttons">
                  <button type="submit">Submit</button>
