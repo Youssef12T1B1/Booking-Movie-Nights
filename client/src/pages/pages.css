@@ -1,0 +1,51 @@
+
+.Auth_form{
+width: 20rem;
+max-width: 80%;
+margin: 6rem auto;
+}
+.form-control label,
+.form-control input{
+    width: 100%;
+    display: block;
+
+}
+.form-control label{
+    margin-bottom: .4rem;
+}
+.form-control input{
+    height: 1.5rem;
+}
+.form-control{
+    margin-bottom: 1rem ;
+} 
+.from-buttons button,
+.btn{
+    background-color: #3db36e;
+    font: inherit;
+    border: 1px solid #3db36e;
+    border-radius: 3px;
+    box-shadow: 1px 1px 5px black;
+    padding: 0.25rem 1rem ;
+    margin-right: 1rem;
+    color: white;
+    cursor: pointer;
+
+}
+.from-buttons button:hover,
+.from-buttons button:active,
+.btn:hover,
+.btn:active{
+    background: #09351a;
+    border-color: #09351a;
+}
+.Event_Creation{
+    text-align: center;
+    border: 1px solid #2739dd;
+    padding: 1rem;
+    margin: 2rem auto;
+    width: 30rem;
+    max-width: 80%;
+    
+
+}
