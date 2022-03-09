@@ -141,3 +141,30 @@ margin: 6rem auto;
     background: #09351a;
     border-color: #09351a;
 }
+
+.BookingChoose{
+  width: 20rem;
+  margin: 1.3rem auto;
+}
+
+.btn_Booking{
+  font: inherit;
+  font-size: 1.2rem;
+  border: none;
+  background: transparent;
+  color: black;
+  padding: 0.25rem 1rem;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+.btn_Booking:focus{
+  outline: none;
+}
+
+
+.btn_Booking:hover,
+.btn_Booking:active{
+    border-bottom-color: #2739dd;
+    border-color: #09351a;
+    font-weight: bold;
+}

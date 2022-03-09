@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import './pages.css'
 import AuthContext from '../context/auth'
-import Chart from "../components/Bookings/Charts/chart";
+import Bookchart from "../components/Bookings/Charts/chart";
 import Spinner from "../components/Bookings/BookingList/spinner";
 import BookingList from "../components/Bookings/BookingList/bookingList";
 class BookingsPage extends Component{
@@ -27,6 +27,7 @@ class BookingsPage extends Component{
                         _id
                         title
                         date
+                        price
                     }
                 }
             }
@@ -123,12 +124,12 @@ class BookingsPage extends Component{
        if(!this.state.isLoading){
         content= (
             <React.Fragment>
-                <div>
-                    <button className="btn_Event" onClick={this.BookingPageHundler.bind(this,'bookings')}>Bookings</button>
-                    <button  className="btn_Event" onClick={this.BookingPageHundler.bind(this,'chart')}>Chart</button>
+                <div className="BookingChoose">  
+                    <button  className='btn_Booking' onClick={this.BookingPageHundler.bind(this,'bookings')}>Bookings</button>
+                    <button  className="btn_Booking" onClick={this.BookingPageHundler.bind(this,'chart')}>Chart</button>
                 </div>
                 <div>
-                   {this.state.Type === 'bookings' ? (<BookingList bookings={this.state.bookings} onDelete={this.CancelBookHandler}/>): (<Chart bookings={this.state.bookings} />) }
+                   {this.state.Type === 'bookings' ? (<BookingList bookings={this.state.bookings} onDelete={this.CancelBookHandler}/>): (<Bookchart bookings={this.state.bookings} />) }
                 </div>
             </React.Fragment>
         )
