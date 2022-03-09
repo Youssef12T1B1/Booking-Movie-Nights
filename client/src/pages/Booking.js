@@ -1,11 +1,14 @@
 import React, {Component} from "react";
 import './pages.css'
 import AuthContext from '../context/auth'
+import Chart from "../components/Bookings/Charts/chart";
+import Spinner from "../components/Bookings/BookingList/spinner";
 import BookingList from "../components/Bookings/BookingList/bookingList";
 class BookingsPage extends Component{
     state = {
         isLoading: false,
-        bookings : []
+        bookings : [],
+        Type : 'bookings'
     }
     static  contextType = AuthContext
     componentDidMount(){
@@ -62,15 +65,18 @@ class BookingsPage extends Component{
         this.setState({isLoading:true})
         const query = {
             query:`
-            mutation {
-                cancelBooking(bookingId:"${bookingId}"){
+            mutation CancelBooking($Id: ID!) {
+                cancelBooking(bookingId: $Id){
                         _id
                         title
-                        date
+                        
                     
                 }
             }
-                `
+                `,
+            variables:{
+                    Id: bookingId
+                }
         }
         
          
@@ -104,17 +110,33 @@ class BookingsPage extends Component{
         })
     }
 
-   
+   BookingPageHundler = Type =>{
+       if(Type === 'bookings'){
+           this.setState({Type: 'bookings'})
+       }else{
+           this.setState({Type: 'chart'})
+       }
+   }
 
     render(){
+       let content =  <Spinner/>
+       if(!this.state.isLoading){
+        content= (
+            <React.Fragment>
+                <div>
+                    <button className="btn_Event" onClick={this.BookingPageHundler.bind(this,'bookings')}>Bookings</button>
+                    <button  className="btn_Event" onClick={this.BookingPageHundler.bind(this,'chart')}>Chart</button>
+                </div>
+                <div>
+                   {this.state.Type === 'bookings' ? (<BookingList bookings={this.state.bookings} onDelete={this.CancelBookHandler}/>): (<Chart bookings={this.state.bookings} />) }
+                </div>
+            </React.Fragment>
+        )
+       }
+      
         return ( 
         <React.Fragment>
-        {this.state.isLoading  ? <div className="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div> : 
-        ( 
-               <BookingList  bookings={this.state.bookings} onDelete={this.CancelBookHandler}/>
-
-        )}
-     
+       {content}
         </React.Fragment>
         )
     }

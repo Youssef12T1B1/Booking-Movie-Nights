@@ -111,15 +111,18 @@ class EventsPage extends Component{
         // this.setState({isLoading:true})
         const query = {
             query:`
-            mutation {
-                bookEvent(eventId :"${this.state.selectedEvent._id}"){
+            mutation BookEvent($id: ID!){
+                bookEvent(eventId : $id){
                 _id    
                 createdAt
                 updatedAt
                 
                 }
             }
-                `
+                `,
+                variables:{
+                    id:this.state.selectedEvent._id
+                }
         }
       
 
@@ -154,18 +157,18 @@ class EventsPage extends Component{
 
     }
     AddHandler=()=>{
-       const tilte = this.titleRef.current.value
+       const title = this.titleRef.current.value
        const description = this.descriptionRef.current.value
        const price = +this.priceRef.current.value
        const date = this.dateRef.current.value
-       if(tilte.trim().length === 0 || description.trim().length === 0 || !price || date.trim().length === 0 ){
+       if(title.trim().length === 0 || description.trim().length === 0 || !price || date.trim().length === 0 ){
         return
     }
     //    const event = { tilte, description, price, date }
        const query = {
         query:`
-        mutation {
-            createEvent(EventInput:{title:"${tilte}" , description:"${description}",price:${price},date:"${date}" }){
+        mutation CreateEvent($title: String!, $description:String!,$price:Float!,$date:String!){
+            createEvent(EventInput:{title: $title , description:$description ,price:$price ,date:$date }){
             _id
             title
             description
@@ -174,7 +177,13 @@ class EventsPage extends Component{
             
         }
         }
-            `
+            `,
+            variables:{
+               title: title,
+               description : description,
+               price : price,
+               date: date
+            }
     }
     const token = this.context.token
      

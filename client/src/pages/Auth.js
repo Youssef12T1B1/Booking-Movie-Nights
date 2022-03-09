@@ -31,27 +31,39 @@ class AuthPage extends Component{
           }
           let query = {
               query:`
-                  query{
-                     login(username:"${username}", password:"${password}") {
+                  query Login($username: String!, $password:String!){
+                     login(username:$username, password:$password) {
                          userId
                          token
                          tokenExpiration
                      }
                   }
               
-              `
+              `,
+              variables:{
+                username: username,
+                password: password
+             
+             }
+
           }
           if(!this.state.isLoggedIn){
                  query = {
                     query:`
-                    mutation {
-                    createUser(UserInput:{username:"${username}" , email:"${email}",password:"${password}" }){
+                    mutation CreateUser($username:String!, $email:String!, $password:String){
+                    createUser(UserInput:{username:$username , email:$email,password:$password }){
                         _id
                         username
                     }
                     }
                     
-                    `
+                    `,
+                    variables:{
+                       username: username,
+                       email: email,
+                       password: password
+                    
+                    }
                 }
           }
 
