@@ -8,13 +8,17 @@ class BookingsPage extends Component{
     state = {
         isLoading: false,
         bookings : [],
-        Type : 'bookings'
+        Type : 'bookings',
+        isBooked: 'none'
     }
     static  contextType = AuthContext
     componentDidMount(){
-        this.bookings()
+    
+            this.bookings()
+     
     }
 
+    NoBookings
     bookings =()=>{
         this.setState({isLoading:true})
         const query = {
@@ -53,6 +57,15 @@ class BookingsPage extends Component{
         .then(resData =>{
           const bookings = resData.data.bookings
            this.setState({bookings: bookings, isLoading:false})
+           if(bookings.length>0){
+               this.setState({
+                   isBooked:'booked'
+               })
+           }
+
+   
+         
+           
           
     
            })
@@ -97,14 +110,21 @@ class BookingsPage extends Component{
              return res.json()
         })
         .then(resData =>{
+        
+
           this.setState(prevState =>{
               const newBookings = prevState.bookings.filter(booking =>{
                   return booking._id !== bookingId
               })
+        
               return { bookings : newBookings, isLoading:false }
+             
+             
+ 
           })
-          
+    
            })
+
         .catch(err=>{
             console.log(err);
             this.setState({isLoading:false})
@@ -114,6 +134,10 @@ class BookingsPage extends Component{
    BookingPageHundler = Type =>{
        if(Type === 'bookings'){
            this.setState({Type: 'bookings'})
+          
+            
+           
+      
        }else{
            this.setState({Type: 'chart'})
        }
@@ -124,20 +148,25 @@ class BookingsPage extends Component{
        if(!this.state.isLoading){
         content= (
             <React.Fragment>
+                
                 <div className="BookingChoose">  
                     <button  className='btn_Booking' onClick={this.BookingPageHundler.bind(this,'bookings')}>Bookings</button>
-                    <button  className="btn_Booking" onClick={this.BookingPageHundler.bind(this,'chart')}>Chart</button>
+                  {this.state.isBooked !== 'none' &&  <button className="btn_Booking" onClick={this.BookingPageHundler.bind(this,'chart')}>Chart</button>}
                 </div>
                 <div>
                    {this.state.Type === 'bookings' ? (<BookingList bookings={this.state.bookings} onDelete={this.CancelBookHandler}/>): (<Bookchart bookings={this.state.bookings} />) }
                 </div>
+               <div>
+               {this.state.isBooked === 'none' && <h1>No Booking Yet</h1>}
+               </div>
             </React.Fragment>
         )
        }
-      
+     
         return ( 
         <React.Fragment>
        {content}
+
         </React.Fragment>
         )
     }

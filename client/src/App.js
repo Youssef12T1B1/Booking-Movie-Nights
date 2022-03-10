@@ -31,7 +31,7 @@ class App extends Component {
         <MainNav />
         <main className="main-content">
           <Routes>
-           
+          <Route path="/" element={<Navigate replace to="/events" />} /> 
            {this.state.token && <Route path="/" element={<Navigate replace to="/events" />} />} 
            {this.state.token && <Route path="/login" element={<Navigate replace to="/events" />} />} 
            {!this.state.token &&<Route path="/login" element={<AuthPage />} /> }

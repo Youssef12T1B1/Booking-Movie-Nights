@@ -9,6 +9,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    
 }
 .main-nav_logo h1{
     margin:0 ; 
@@ -29,6 +30,7 @@
 .main-nav_items li {
     padding: 0 1rem;  
     font-weight: bold;
+    margin-right: 1.3rem;
 }
 
 .main-nav_items a,

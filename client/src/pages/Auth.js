@@ -88,13 +88,21 @@ class AuthPage extends Component{
             })
             .then(res =>{
                 if(res.status !==200 && res.status !== 201 ){
+                   
                     throw new Error('Authentication Failed !!')
                     
                 }
                  return res.json()
             })
             .then(resData =>{
+                if(resData){
+                    if(resData.errors){
+                        this.setState({
+                            isError: resData.errors[0].message
+                           })
+                    }
              if(resData.data){
+
                 if(resData.data.createUser){
                     this.setState({
                      IsSignedUp: 'Hi: '+resData.data.createUser.username+ ' Switch To logged In'
@@ -112,7 +120,8 @@ class AuthPage extends Component{
                 }
              
             
-             }
+             }}
+             
        
              
 

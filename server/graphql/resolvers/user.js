@@ -10,7 +10,7 @@ module.exports={
             return User.findOne({username: args.UserInput.username })
             .then(user=>{
                 if(user){
-                    throw new Error('User Exists')
+                    throw new Error('Try Again : User Exists  ')
                 }
                 return bcrypt.hash(args.UserInput.password,12)
             })
