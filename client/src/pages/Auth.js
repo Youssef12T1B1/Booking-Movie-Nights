@@ -4,7 +4,9 @@ import AuthContext from '../context/auth'
 
 class AuthPage extends Component{
       state = {
-          isLoggedIn : true
+          isLoggedIn : true,
+          isError: null,
+          IsSignedUp: null,
       }
     static contextType = AuthContext
 
@@ -20,6 +22,11 @@ class AuthPage extends Component{
             return {isLoggedIn : !prevState.isLoggedIn }
         })
     }
+    ErrorHandler = ()=>{
+        this.setState({
+            isError: null
+        })
+    }
 
       fromHandler = (event)=>{
           event.preventDefault()
@@ -27,6 +34,9 @@ class AuthPage extends Component{
           const email = this.emailRef.current.value
           const password = this.passwordRef.current.value
           if(username.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0 ){
+              this.setState({
+                  isError: "Please Entre Valid Data"
+              })
               return
           }
           let query = {
@@ -50,7 +60,7 @@ class AuthPage extends Component{
           if(!this.state.isLoggedIn){
                  query = {
                     query:`
-                    mutation CreateUser($username:String!, $email:String!, $password:String){
+                    mutation CreateUser($username:String!, $email:String!, $password:String!){
                     createUser(UserInput:{username:$username , email:$email,password:$password }){
                         _id
                         username
@@ -77,28 +87,49 @@ class AuthPage extends Component{
                 }
             })
             .then(res =>{
-                if(res.status !==200 && res.status !== 201){
-                    throw new Error('Failed!!!')
+                if(res.status !==200 && res.status !== 201 ){
+                    throw new Error('Authentication Failed !!')
+                    
                 }
                  return res.json()
             })
             .then(resData =>{
-               if(resData.data.login.token){
-                   this.context.login(
-                    resData.data.login.token,
-                    resData.data.login.userId,
-                    resData.data.login.tokenExpiration
-                    )
+             if(resData.data){
+                if(resData.data.createUser){
+                    this.setState({
+                     IsSignedUp: 'Hi: '+resData.data.createUser.username+ ' Switch To logged In'
+                    })
+                    
+    
+                }
+                if(resData.data.login){
+                    this.context.login(
+                     resData.data.login.token,
+                     resData.data.login.userId,
+                     resData.data.login.tokenExpiration
+                     )
+                         return
+                }
+             
+            
+             }
+       
+             
 
-               }
             })
             .catch(err=>{
-                console.log(err);
+                this.setState({isError: err.message})
             })
       }
 
     render(){
-        return <form className="Auth_form" onSubmit={this.fromHandler}>
+      
+        return (
+            <React.Fragment>
+       
+        <form className="Auth_form" onSubmit={this.fromHandler}> 
+        {this.state.isError && <center><div className="errorHandler"> <h2>{this.state.isError}</h2> <button onClick={this.ErrorHandler}>x</button></div></center>}
+        {this.state.IsSignedUp && <center><div className="msgHandler"> <h2>{this.state.IsSignedUp}</h2> <button onClick={this.ErrorHandler}>x</button></div></center>}
             <div className="form-control">
                 <label htmlFor="username">Username</label>
                 <input type='text' id="username" ref={this.usernameRef}></input>
@@ -120,6 +151,8 @@ class AuthPage extends Component{
               
               </div>
         </form>
+        </React.Fragment>
+        )
     }
 }
 

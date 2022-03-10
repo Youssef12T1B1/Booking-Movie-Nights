@@ -168,3 +168,71 @@ margin: 6rem auto;
     border-color: #09351a;
     font-weight: bold;
 }
+
+.errorHandler {
+display: flex;
+align-items: center;
+border: 1px solid red;
+text-align: center;
+margin-bottom: 1rem;
+background-color: rgb(243, 119, 119);
+border-radius: 6px;
+height: 1.5rem;
+width: 70%;
+}
+.errorHandler h2{
+  font: inherit;
+  font-size: 1rem;
+  color: black;
+  margin-left: 0.7rem;
+  
+}
+.errorHandler button{
+  font: inherit;
+  font-size: 1.2rem;
+  border: none;
+  background: transparent;
+  color: white;
+  padding: 0.25rem 1rem;
+}
+.errorHandler button:hover,
+.errorHandler button:active{
+    font-weight: bolder;
+    color: red;
+    cursor: pointer;
+}
+
+
+.msgHandler {
+  display: flex;
+  align-items: center;
+  border: 1px solid green;
+  text-align: center;
+  margin-bottom: 1rem;
+  background-color:#4abd8d;
+  border-radius: 6px;
+  height: 1.5rem;
+  width: 90%;
+  }
+  .msgHandler h2{
+    font: inherit;
+    font-size: 1rem;
+    color: black;
+    margin-left: 0.7rem;
+    
+  }
+  .msgHandler button{
+    font: inherit;
+    font-size: 1.2rem;
+    border: none;
+    background: transparent;
+    color: white;
+    padding: 0.25rem 1rem;
+  }
+  .msgHandler button:hover,
+  .msgHandler button:active{
+      font-weight: bolder;
+      color: green;
+      cursor: pointer;
+  }
+  
